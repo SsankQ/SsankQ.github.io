@@ -1,31 +1,59 @@
+---
+layout: compress
+# Default layout
+---
+
 <!DOCTYPE html>
-<html lang="en-us">
+
+{% include lang.html %}
+
+{% capture prefer_mode %}
+  {% if site.theme_mode %}
+    data-mode="{{ site.theme_mode }}"
+  {% endif %}
+{% endcapture %}
+
+<html lang="{{ site.lang }}"{{ prefer_mode }}>
 
   {% include head.html %}
 
-  <body class="theme-base-0c">
+  {% unless site.theme_mode %}
+    {% include mode-toggle.html %}
+  {% endunless %}
+
+  <body data-spy="scroll" data-target="#toc" data-topbar-visible="true">
 
     {% include sidebar.html %}
 
-    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
-         content to avoid any CSS collisions with our real content. -->
-    <div class="wrap">
-      <div class="masthead">
-        <div class="container">
-          <h3 class="masthead-title">
-            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
-            <small>{{ site.tagline }}</small>
-          </h3>
-        </div>
-      </div>
+    {% include topbar.html %}
 
-      <div class="container content">
+    <div id="main-wrapper">
+      <div id="main">
+
         {{ content }}
+
+        {% include footer.html %}
+
       </div>
-    </div>
 
-    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+      {% include search-results.html %}
 
-    <script src='{{ site.baseurl }}/public/js/script.js'></script>
+    </div> <!-- #main-wrapper -->
+
+    {% if page.mermaid %}
+      {% include mermaid.html %}
+    {% endif %}
+
+    <div id="mask"></div>
+
+    <a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    {% include search-loader.html %}
+
+    {% include js-selector.html %}
+
   </body>
+
 </html>

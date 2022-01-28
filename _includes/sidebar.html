@@ -1,91 +1,93 @@
-<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
-     styles, `#sidebar-checkbox` for behavior. -->
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<!--
+  The Side Bar
+-->
 
-<!-- Toggleable sidebar -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-item">
-    <p>{{ site.description }}</p>
-  </div>
-
-  <nav class="sidebar-nav">
-    <a class="sidebar-nav-item{% if page.title == 'Home' %} active{% endif %}" href="{{ '/' | absolute_url }}">Home</a>
-
-    {% comment %}
-      The code below dynamically generates a sidebar nav of pages with
-      `layout: page` in the front-matter. See readme for usage.
-    {% endcomment %}
-
-    {% assign pages_list = site.pages | sort:"url" %}
-    {% for node in pages_list %}
-      {% if node.title != null %}
-        {% if node.layout == "page" %}
-          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | absolute_url }}">{{ node.title }}</a>
+<div id="sidebar" class="d-flex flex-column align-items-end" lang="{{lang}}">
+  <div class="profile-wrapper text-center">
+    <div id="avatar">
+      <a href="{{ '/' | relative_url }}" alt="avatar" class="mx-auto">
+        {% if site.avatar != '' and site.avatar %}
+          {% capture avatar_url %}
+            {%- if site.avatar contains '://' -%}
+              {{ site.avatar }}
+            {%- elsif site.img_cdn != '' and site.img_cdn -%}
+              {{ site.avatar | prepend: site.img_cdn }}
+            {%- else -%}
+              {{ site.avatar | relative_url }}
+            {%- endif -%}
+          {% endcapture %}
+          <img src="https://img.icons8.com/dusk/128/000000/finn--v1.png" alt="avatar" onerror="this.style.display='none'">
         {% endif %}
-      {% endif %}
+      </a>
+    </div>
+
+    <div class="site-title mt-3">
+      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    </div>
+    <div class="site-subtitle font-italic">{{ site.tagline }}</div>
+
+  </div><!-- .profile-wrapper -->
+
+  <ul class="w-100">
+
+    <!-- home -->
+    <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
+      <a href="{{ '/' | relative_url }}" class="nav-link">
+        <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i>
+        <span>{{ site.data.locales[lang].tabs.home | upcase }}</span>
+      </a>
+    </li>
+    <!-- the real tabs -->
+    {% for tab in site.tabs %}
+    <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
+      <a href="{{ tab.url | relative_url }}" class="nav-link">
+        <i class="fa-fw {{ tab.icon }} ml-xl-3 mr-xl-3 unloaded"></i>
+        {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
+
+        <span>{{ site.data.locales[lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
+      </a>
+    </li> <!-- .nav-item -->
     {% endfor %}
 
-    <div> 
-      <div class="sidebar-nav-item">Category</div>
-      <nav class="content-ul">
-        {% for category in site.categories %}
-        <a href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}"
-           class="sidebar-nav-item pl-3rem">
-                              <span class="name">
-                                  {{ category | first }}
-                              </span>
-          <span class="badge">{{ category | last | size }}</span>
-        </a>
-        {% endfor %}
-      </nav>
-    </div>
-    <div>
-      <div class="sidebar-nav-item">Tags</div>
-      <div class="tags-cloud">
-        <div>
-          {% assign first = site.tags.first %}
-          {% assign max = first[1].size %}
-          {% assign min = max %}
-          {% for tag in site.tags offset:1 %}
-          {% if tag[1].size > max %}
-          {% assign max = tag[1].size %}
-          {% elsif min > tag[1].size %}
-          {% assign min = tag[1].size %}
-          {% endif %}
-          {% endfor %}
-    
-          {% if max == min %}
-          {% assign diff = 1 %}
-          {% else %}
-          {% assign diff = max | minus: min %}
-          {% endif %}
-    
-          {% for tag in site.tags %}
-          {% assign temp = tag[1].size | minus: min | times: 36 | divided_by: diff %}
-          {% assign base = temp | divided_by: 4 %}
-          {% assign remain = temp | modulo: 4 %}
-          {% if remain == 0 %}
-          {% assign size = base | plus: 9 %}
-          {% elsif remain == 1 or remain == 2 %}
-          {% assign size = base | plus: 9 | append: '.5' %}
-          {% else %}
-          {% assign size = base | plus: 10 %}
-          {% endif %}
-          {% if remain == 0 or remain == 1 %}
-          {% assign color = 9 | minus: base %}
-          {% else %}
-          {% assign color = 8 | minus: base %}
-          {% endif %}
-          <a href="{{ root_url }}/{{ site.tag_dir }}#{{ tag[0] }}" style="font-size: 9pt">{{ tag[0] }}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </nav>
+  </ul> <!-- ul.nav.flex-column -->
 
-  <div class="sidebar-item">
-    <p>
-      &copy; {{ site.time | date: '%Y' }}. All rights reserved.
-    </p>
-  </div>
-</div>
+  <div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center">
+
+    {% unless site.theme_mode %}
+      <button class="mode-toggle btn" aria-label="Switch Mode">
+        <i class="fas fa-adjust"></i>
+      </button>
+
+      {% if site.data.contact.size > 0 %}
+        <span class="icon-border"></span>
+      {% endif %}
+    {% endunless %}
+
+    {% for entry in site.data.contact %}
+      {% capture url %}
+        {%- if entry.type == 'github' -%}
+          https://github.com/{{ site.github.username }}
+        {%- elsif entry.type == 'twitter' -%}
+          https://twitter.com/{{ site.twitter.username }}
+        {%- elsif entry.type == 'email' -%}
+          {% assign email = site.social.email | split: '@' %}
+          javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')
+        {%- elsif entry.type == 'rss' -%}
+          {{ "/feed.xml" | relative_url }}
+        {%- else -%}
+          {{ entry.url }}
+        {%- endif -%}
+      {% endcapture %}
+
+      {% if url %}
+      <a href="{{ url }}" aria-label="{{ entry.type }}"
+        {% unless entry.noblank %}target="_blank" rel="noopener"{% endunless %}>
+        <i class="{{ entry.icon }}"></i>
+      </a>
+      {% endif %}
+
+    {% endfor %}
+
+  </div> <!-- .sidebar-bottom -->
+
+</div><!-- #sidebar -->
