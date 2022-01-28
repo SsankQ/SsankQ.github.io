@@ -1,5 +1,7 @@
 ---
 layout: post
+toc: true
+toc_label: Table of Contents
 title: Example content
 categories: Category
 ---
