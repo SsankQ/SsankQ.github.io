@@ -3,7 +3,7 @@ title: Stack & Queue
 author:
   name: SsankQ
 date: 2022-02-14 11:00:00 +0800
-categories: [Algorithms & CodingTest, CodingTest]
+categories: [Algorithms & CodingTest, Algorithms]
 tags: [Stack, Queue]
 render_with_liquid: false
 ---
