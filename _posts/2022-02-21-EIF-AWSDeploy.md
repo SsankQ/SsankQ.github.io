@@ -4,7 +4,7 @@ author:
   name: SsankQ
 date: 2022-02-21 20:00:00 +0800
 categories: [EIF, AWS]
-tags: [AWS, Error]
+tags: [AWS, EIF]
 render_with_liquid: false
 ---
 
