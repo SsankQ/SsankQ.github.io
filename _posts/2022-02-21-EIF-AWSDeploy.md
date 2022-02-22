@@ -65,8 +65,10 @@ render_with_liquid: false
 
 ![node,npm](https://user-images.githubusercontent.com/89354370/154995765-87f99dcc-94f7-4892-9571-810018543cbd.png)
 
-*<center>node 및 npm 버전을 최신화해준 후 배포 재시도를 해보았다</center>*
+***node 및 npm 버전을 최신화**해준 후 배포 재시도를 해보았다*
+{: .text-center }
 
 <img src='https://user-images.githubusercontent.com/89354370/154996078-d4a2bcb2-416b-41f6-bbc0-7d3ca8b9c176.png' alt='success' width=400px height=700px/>
 
 ***드디어 해결... 에러 로그 확인도 잘할 수 있어야 프로젝트, 현업 단계에서 당황하지 않고 천천히 해결할 수 있을 것 같다***
+{: .text-center }
