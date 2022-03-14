@@ -1,8 +1,8 @@
 ---
-title: ERR HTTP HEADERS SENT
+title: 참조한 FK Column이 터미널에서 식별되지 않는 점 및 Sequelize unknown column 에러에 관한 내용
 author:
   name: SsankQ
-date: 2022-03-04 19:30:00 +0800
+date: 2022-03-05 21:30:00 +0800
 categories: [EIF, First-Project]
 tags: [First-Project, EIF]
 render_with_liquid: false
