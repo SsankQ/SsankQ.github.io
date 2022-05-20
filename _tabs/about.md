@@ -1,8 +1,8 @@
 ---
-title: About
+title: SsankQ's Notion
 icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
+> [Notion Link](https://ssankq.notion.site/SsankQ-ba0b6d42a8fd4c5496472218c26633df)
 {: .prompt-note }

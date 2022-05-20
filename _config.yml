@@ -20,7 +20,7 @@ timezone: Asia/Seoul
 
 title: SsankQ's DevLog                        # the main title
 
-tagline: 이것저것 기록하는 개발일지   # it will display as the sub-title
+tagline: 이것저것 기록하는 개발일지  # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   이것저것 기록하는 개발일지
@@ -41,7 +41,7 @@ social:
     # The first element serves as the copyright owner's link
     - https://github.com/SsankQ       # change to your github homepage
     # Uncomment below to add more social links
-    # - https://www.facebook.com/username
+    - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
 
 google_site_verification:               # fill in to your verification string
@@ -92,7 +92,7 @@ comments:
     repo:         # <gh-username>/<repo>
     issue_term:   # < url | pathname | title | ...>
 
-paginate: 10
+paginate: 5
 
 # ------------ The following options are not recommended to be modified ------------------
 
